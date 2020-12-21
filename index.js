@@ -25,15 +25,13 @@ currentSnake.forEach(index => squares[index].classList.add('snake'))
 function move() {
     //remove last element from our currentSnake array
     const tail = currentSnake.pop()
-    console.log(tail)
-    console.log(currentSnake)
     //remove styling from last element
     squares[tail].classList.remove('snake')
     //add square in direction we are heading
     currentSnake.unshift(currentSnake[0] + direction)
-    console.log(currentSnake)
     //add styling so we can see it
     squares[currentSnake[0]].classList.add('snake')
 }
 move()
 
+let timerId = setInterval(move, 1000)
