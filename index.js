@@ -1,11 +1,12 @@
 const grid = document.querySelector('.grid')
 const startButton = document.getElementById('start')
-const score = document.getElementById('score')
+const scoreDisplay = document.getElementById('score')
 let squares = []
 let currentSnake = [2,1,0]
 let direction = 1
 const width = 10
 let appleIndex = 0
+let score = 0
 
 function createGrid() {
     //create 100 of these elements with a for loop
@@ -55,9 +56,9 @@ function move() {
         //generate new apple
         generateApple()
         //add one to the score
-        
+        score++
         //display our score
-        
+        scoreDisplay.textContent = score
         //speed up our snake
         
     }
