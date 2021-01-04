@@ -7,6 +7,9 @@ let direction = 1
 const width = 10
 let appleIndex = 0
 let score = 0
+let intervalTime = 1000
+let speed = 0.9
+let timerId = 0
 
 function createGrid() {
     //create 100 of these elements with a for loop
@@ -24,6 +27,24 @@ function createGrid() {
 createGrid()
 
 currentSnake.forEach(index => squares[index].classList.add('snake'))
+
+function startGame() {
+    //remove the snake
+    currentSnake.forEach(index => squares[index].classList.remove('snake'))
+    //remove the apple
+    squares[appleIndex].classList.remove('apple')
+    clearInterval(timerId)
+    currentSnake = [2,1,0]
+    score = 0
+    //re add new score to browser
+    scoreDisplay.textContent = score
+    direction = 1
+    intervalTime = 1000
+    generateApple()
+    //readd the class of snake to our new currentSnake
+    currentSnake.forEach(index => squares[index].classList.add('snake'))
+    timerId = setInterval(move, intervalTime)
+}
 
 function move() {
     if (
@@ -60,16 +81,20 @@ function move() {
         //display our score
         scoreDisplay.textContent = score
         //speed up our snake
-        
+        clearInterval(timerId)
+        console.log(intervalTime)
+        intervalTime = intervalTime * speed
+        console.log(intervalTime)
+        timerId = setInterval(move, intervalTime)
     }
     
     
     
     squares[currentSnake[0]].classList.add('snake')
 }
-move()
 
-let timerId = setInterval(move, 1000)
+
+
 
 
 
@@ -102,3 +127,4 @@ function control(e) {
     }
 }
 document.addEventListener('keyup', control)
+startButton.addEventListener('click', startGame)
